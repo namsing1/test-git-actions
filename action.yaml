@@ -236,11 +236,5 @@ outputs:
     description: |-
       Runtime of the Cloud Function deployment.
 
-
-branding:
-  icon: 'code'
-  color: 'blue'
-
 runs:
-  using: 'Java 11'
-  master: 'src/main/java/com/example/Example.java'
+  using: 'Java'
