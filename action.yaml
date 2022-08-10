@@ -13,6 +13,11 @@
 # limitations under the License.
 
 name: Cloud Functions Deploy
+run: |-
+          gcloud functions deploy  hello-world-java-cf\
+          --region=${{ env.REGION }} \
+          --project=${{ env.GCP_PROJECT_ID }}
+          --source=src/main/java/com/example/Example.java
 description: |-
   Use this action to deploy your function or
   update an existing Cloud Function.
@@ -21,7 +26,7 @@ author: Google LLC
 inputs:
   name:
     description: |-
-      hello-world-java-cf-gitactions
+      hello-world-java-cf
     required: true
 
   description:
@@ -236,5 +241,3 @@ outputs:
     description: |-
       Runtime of the Cloud Function deployment.
 
-runs:
-  using: 'Java'
