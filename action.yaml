@@ -13,6 +13,9 @@
 # limitations under the License.
 
 name: Cloud Functions Deploy
+env:
+  REGION: europe-west1
+  GCP_PROJECT_ID: modular-edge-357709
 run: |-
           gcloud functions deploy  hello-world-java-cf\
           --region=${{ env.REGION }} \
