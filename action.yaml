@@ -241,3 +241,5 @@ outputs:
     description: |-
       Runtime of the Cloud Function deployment.
 
+runs:
+  using: 'docker'
