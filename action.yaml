@@ -241,6 +241,3 @@ outputs:
     description: |-
       Runtime of the Cloud Function deployment.
 
-runs:
-  using: 'java11'
-  main: 'src/main/java/com/example/Example.java'
