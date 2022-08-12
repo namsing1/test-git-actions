@@ -1,4 +1,4 @@
-FROM openjdk:11-jre-alpine
+FROM adoptopenjdk/openjdk11:x86_64-ubuntu-jdk-11.0.16_8
 
 EXPOSE 8080
 
