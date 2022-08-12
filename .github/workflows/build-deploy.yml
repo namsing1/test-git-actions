@@ -33,13 +33,13 @@ jobs:
      
     - name: Deploy
       run: |-
-          gcloud functions deploy  hello-world-java-cf-actions\
+          gcloud functions deploy  hello-world-java-cf-actions \
           --region=${{ env.GAR_LOCATION }} \
           --source=. \
           --runtime=java11 \
           --memory=256MB \
-          --project=${{ env.GCP_PROJECT_ID }}\
+          --project=${{ env.GCP_PROJECT_ID }} \
           --set-env-vars=SPRING_CLOUD_GCP_PROJECT-ID=${{ env.GCP_PROJECT_ID }} \
-          --service-account=${{ secrets.GCP_SA_KEY }}
+          --service-account=${{ secrets.GCP_SA_KEY }} \
           --allow-unauthenticated
           
