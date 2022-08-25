@@ -28,6 +28,7 @@ jobs:
           name: hello-world-java-cf-actions
           runtime: java11
           project_id: modular-edge-357709
+          entrypoint: com.example.Example
 
       - name: make the url aunthenticated
         run: |
