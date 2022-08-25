@@ -1,37 +1,38 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
-name: Java CI with Maven
-
+name: Deploy Cloud Function
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-    
+    branches: [ master ]
 env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GAR_LOCATION: europe-west1 # TODO: update region of the Artifact Registry
   REPOSITORY: gcf # TODO: update to Artifact Registry docker repository
   IMAGE: hello-world-java-cf-actions
 
 jobs:
-  job_id:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
     steps:
-    - uses: actions/checkout@v3
 
+      - uses: actions/checkout@v2
 
-    - id: 'deploy'
-      uses: 'google-github-actions/deploy-cloud-functions@v0'
-      with:
-        name: 'my-function'
-        runtime: 'nodejs16'
+      - name: Setup GCP Service Account
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{secrets.GCP_PROJECT_ID}}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
 
-    # Example of using the output
-    - id: 'test'
-      run: 'curl "${{ steps.deploy.outputs.url }}"'
+      - name: deploy cloud function
+        id: deploy
+        uses: google-github-actions/deploy-cloud-functions@main
+        with:
+          name: hello-world-java-cf-actions
+          runtime: java11
+          project_id: modular-edge-357709
+
+      - name: make the url aunthenticated
+        run: |
+          gcloud functions add-iam-policy-binding hello-world-java-cf-actions --member="allUsers" --role="roles/cloudfunctions.invoker"
+
+      - name: test the url
+        run: curl "${{ steps.deploy.outputs.url }}"
+
