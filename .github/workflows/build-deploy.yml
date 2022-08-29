@@ -29,6 +29,7 @@ jobs:
           runtime: java11
           project_id: modular-edge-357709
           region: europe-west1
+          set_env_vars: REGION=europe-west1
           entry_point: com.example.Example
 
       - name: make the url aunthenticated
