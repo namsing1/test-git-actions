@@ -32,7 +32,7 @@ jobs:
 
       - name: deploy cloud function
         run: |
-          gcloud functions deploy hello-world-java-cf-actions --region="europe-west1" --entry-point=com.example.Example --runtime=java11 --project=modular-edge-357709 --set-env-vars=REGION=europe-west1 --allow-unauthenticated
+          gcloud functions deploy hello-world-java-cf-actions --region="europe-west1" --entry-point=com.example.Example --trigger-http --runtime=java11 --project=modular-edge-357709 --set-env-vars=REGION=europe-west1 --allow-unauthenticated
       
       - name: test the url
         run: curl "${{ steps.deploy.outputs.url }}"
