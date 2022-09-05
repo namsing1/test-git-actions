@@ -31,19 +31,8 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0
 
       - name: deploy cloud function
-        id: deploy
-        uses: google-github-actions/deploy-cloud-functions@main
-        with:
-          name: hello-world-java-cf-actions
-          runtime: java11
-          project_id: modular-edge-357709
-          region: europe-west1
-          entry_point: com.example.Example
-          env_vars: REGION=europe-west1
-
-      - name: make the url aunthenticated
         run: |
-          gcloud functions add-iam-policy-binding hello-world-java-cf-actions --region="europe-west1" --member="allUsers" --role="roles/cloudfunctions.invoker"
-
+          gcloud functions deploy hello-world-java-cf-actions --region="europe-west1" --entry-point=com.example.Example --runtime=java11 --project=modular-edge-357709 --set-env-vars=REGION=europe-west1 --allow-unauthenticated
+      
       - name: test the url
         run: curl "${{ steps.deploy.outputs.url }}"
