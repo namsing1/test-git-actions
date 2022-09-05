@@ -31,6 +31,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0
 
       - name: deploy cloud function
+        id: deploy
         run: |
           gcloud functions deploy hello-world-java-cf-actions --region="europe-west1" --entry-point=com.example.Example --trigger-http --runtime=java11 --project=modular-edge-357709 --set-env-vars=REGION=europe-west1 --allow-unauthenticated
       
